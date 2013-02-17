@@ -43,10 +43,12 @@ public class NumericEmbededKeyboard extends LinearLayout  {
 	
 	public void setBottomLeftItem(View view){
 		keyboardLayout[3][0] = view;
+		buildDesign();
 	}
 	
 	public void setBottomRightItem(View view) {
 		keyboardLayout[3][2] = view;
+		buildDesign();
 	}
 	
 	private void handleKeyClick(Button button, Object item) {
@@ -56,6 +58,7 @@ public class NumericEmbededKeyboard extends LinearLayout  {
 	}
 	
 	private void buildDesign(){
+		removeAllViews();
 		setOrientation(LinearLayout.VERTICAL);
 		for(int i=0; i<keyboardLayout.length; i++) {
 			LinearLayout hLayout = new LinearLayout(context);
@@ -79,6 +82,10 @@ public class NumericEmbededKeyboard extends LinearLayout  {
 							
 						});
 						hLayout.addView(bK);
+					} else if (item instanceof View) {
+						View iView = (View)item;
+						iView.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float)weight));
+						hLayout.addView(iView);
 					}
 				} else {
 					//make empty space
