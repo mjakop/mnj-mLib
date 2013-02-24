@@ -59,9 +59,9 @@ public class SimpleHttpClient {
 	public static byte[] requestPOST(String url, byte[] postBody) throws Exception {
 		System.setProperty("http.keepAlive", "false"); //to prevent EOFException
 		int tries = 3; //number of retries in case of exception
-		//while (tries > 0) {
-			//tries--;
-			//try {
+		while (tries > 0) {
+			tries--;
+			try {
 				URL u = new URL(url);
 				HttpURLConnection urlConnection = (HttpURLConnection)u.openConnection();
 				try {
@@ -92,13 +92,13 @@ public class SimpleHttpClient {
 				} finally {
 					urlConnection.disconnect();
 				}
-			//}catch (Exception e) {
-			//	if (tries == 0) {
-			//		throw e;
-			//	}
-			//}
-		//}
-		//return new byte[0];
+			}catch (Exception e) {
+				if (tries == 0) {
+					throw e;
+				}
+			}
+		}
+		return new byte[0];
 	}
 	
 	public static byte[] requestGET(String url) throws Exception {
