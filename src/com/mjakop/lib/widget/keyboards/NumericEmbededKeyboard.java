@@ -18,23 +18,24 @@ public class NumericEmbededKeyboard extends LinearLayout  {
 	
 	private Context context;
 	private NumericEmbededKeyboardListener keyboardListener;
+	private int buttonStyleReference;
 	
 	public NumericEmbededKeyboard(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		this.context = context;
-		buildDesign();
+		buildDesign(-1);
 	}
 
 	public NumericEmbededKeyboard(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.context = context;
-		buildDesign();
+		buildDesign(-1);
 	}
 
 	public NumericEmbededKeyboard(Context context) {
 		super(context);
 		this.context = context;
-		buildDesign();
+		buildDesign(-1);
 	}
 	
 	public void setListener(NumericEmbededKeyboardListener listener){
@@ -43,12 +44,10 @@ public class NumericEmbededKeyboard extends LinearLayout  {
 	
 	public void setBottomLeftItem(View view){
 		keyboardLayout[3][0] = view;
-		buildDesign();
 	}
 	
 	public void setBottomRightItem(View view) {
 		keyboardLayout[3][2] = view;
-		buildDesign();
 	}
 	
 	private void handleKeyClick(Button button, Object item) {
@@ -57,7 +56,15 @@ public class NumericEmbededKeyboard extends LinearLayout  {
 		}
 	}
 	
-	private void buildDesign(){
+	public void setButtonStyle(int buttonStyleReference){
+		this.buttonStyleReference = buttonStyleReference;
+	}
+	
+	public void buildView(){
+		buildDesign(buttonStyleReference);
+	}
+	
+	private void buildDesign(int buttonReference){
 		removeAllViews();
 		setOrientation(LinearLayout.VERTICAL);
 		for(int i=0; i<keyboardLayout.length; i++) {
@@ -71,7 +78,13 @@ public class NumericEmbededKeyboard extends LinearLayout  {
 					if (item instanceof String) {
 						String label = (String)item;
 						//create button
-						final Button bK = new Button(context);
+						Button tmp;
+						if (buttonReference > 0) {
+							tmp = new Button(context, null, buttonStyleReference);
+						} else {
+							tmp = new Button(context);
+						}
+						final Button bK = tmp;
 						bK.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float)weight));
 						bK.setText(label);
 						bK.setOnClickListener(new OnClickListener() {

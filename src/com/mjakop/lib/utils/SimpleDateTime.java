@@ -1,9 +1,12 @@
 package com.mjakop.lib.utils;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import android.util.TimeFormatException;
 
 
 public class SimpleDateTime {
@@ -12,6 +15,15 @@ public class SimpleDateTime {
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month, day, 0, 0, 0);
 		return cal;
+	}
+	
+	public static String formatDate(Calendar cal, String format) {
+		DateFormat dateFormat = new SimpleDateFormat(format);
+		return dateFormat.format(cal.getTime());
+	}
+	
+	public static String formatDate(Calendar cal) {
+		return formatDate(cal, "yyyy-MM-dd");
 	}
 	
 	public static String formatDateShortLocale(Calendar cal) {
@@ -31,6 +43,11 @@ public class SimpleDateTime {
 	
 	public static String formatDateTime(Calendar cal){
 		return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.US).format(new Date(cal.getTimeInMillis()));
+	}
+	
+	public static String formatTimeShortLocale(Calendar cal) {
+		String result = DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date(cal.getTimeInMillis()));
+		return result;
 	}
 	
 	/**
