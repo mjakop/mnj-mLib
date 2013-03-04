@@ -3,10 +3,11 @@ package com.mjakop.lib.utils;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.zip.Adler32;
 
 public class SimpleHash {
 
-	private static String convertToHex(byte[] data) {
+	/*private static String convertToHex(byte[] data) {
 		StringBuffer buf = new StringBuffer();
 		for (int i = 0; i < data.length; i++) {
 			int halfbyte = (data[i] >>> 4) & 0x0F;
@@ -20,6 +21,13 @@ public class SimpleHash {
 			} while (two_halfs++ < 1);
 		}
 		return buf.toString();
+	}*/
+	private static String convertToHex(byte[] data) {
+		StringBuffer result = new StringBuffer();
+		for (byte b:data) {
+		    result.append(String.format("%02X", b));
+		}
+		return result.toString();
 	}
 
 	public static String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -28,6 +36,12 @@ public class SimpleHash {
 		md.update(text.getBytes("UTF-8"), 0, text.length());
 		sha1hash = md.digest();
 		return convertToHex(sha1hash);
+	}
+	
+	public static long CRC32(String text) throws UnsupportedEncodingException {
+		Adler32 adler = new Adler32();
+		adler.update(text.getBytes("UTF-8"), 0, text.length());
+		return adler.getValue();
 	}
 	
 	public static String SHA256(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
