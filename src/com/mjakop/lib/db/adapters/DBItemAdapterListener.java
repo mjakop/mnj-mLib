@@ -6,6 +6,6 @@ import android.view.View;
 
 public interface DBItemAdapterListener {
 	
-	public void setRowData(View row, DBItem item);
+	public void setRowData(View row, DBItem item, int position);
 	
 }

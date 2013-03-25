@@ -47,7 +47,7 @@ public class DBItemAdapter extends ArrayAdapter<DBItem> {
 		this.data = data;
 		this.listener = listener;
 	}
-	
+
 	@Override
 	public View getDropDownView(int position, View row, ViewGroup parent) {
         if(row == null) {
@@ -56,7 +56,7 @@ public class DBItemAdapter extends ArrayAdapter<DBItem> {
         }
         try{
         	DBItem item = (DBItem)getItem(position);
-        	listener.setRowData(row, item);
+        	listener.setRowData(row, item, position);
         }catch (Exception e) {
         	Log.e("DBItemAdapter", "Problem inside getView: ", e);
 		}
@@ -73,7 +73,7 @@ public class DBItemAdapter extends ArrayAdapter<DBItem> {
         }
         try{
         	DBItem item = (DBItem)getItem(position);
-        	listener.setRowData(row, item);
+        	listener.setRowData(row, item, position);
         }catch (Exception e) {
         	Log.e("DBItemAdapter", "Problem inside getView: ", e);
 		}

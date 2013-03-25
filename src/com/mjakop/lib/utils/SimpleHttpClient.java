@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.MethodNotSupportedException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -118,5 +119,13 @@ public class SimpleHttpClient {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	public static byte[] requestPUT(String url, byte[] content) throws Exception {
+		throw new MethodNotSupportedException("Still have to be developed.");
+	}
+	
+	public static byte[] requestDELETE(String url, byte[] content) throws Exception {
+		throw new MethodNotSupportedException("Still have to be developed.");
 	}
 }

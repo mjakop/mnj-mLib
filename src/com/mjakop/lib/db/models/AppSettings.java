@@ -129,5 +129,18 @@ public class AppSettings extends DBModel {
 		}
 		return null;
 	}
+	
+	public void setDouble(String key, double value) {
+		setString(key, ""+value);
+	}
+	
+	public double getDouble(String key, double defaultVal) {
+		try {
+			String value = getString(key, null).replace(",", ".");
+			return Double.parseDouble(value);
+		}catch (Exception e) {
+			return defaultVal;
+		}
+	}
 
 }
